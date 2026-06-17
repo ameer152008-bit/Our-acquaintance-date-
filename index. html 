@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ذكرى حبنا الجميلة 𔒌</title>
+    <style>
+        /* إعدادات الخلفية والألوان */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+        }
+
+        /* تأثير الزجاج (Glassmorphism) */
+        .container {
+            background: rgba(255, 255, 255, 0.25);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2);
+            backdrop-filter: blur(8.5px);
+            -webkit-backdrop-filter: blur(8.5px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            width: 90%;
+            max-width: 450px;
+            padding: 30px;
+            text-align: center;
+            color: #4a2840;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            color: #51386a;
+            margin-bottom: 10px;
+        }
+
+        p.subtitle {
+            font-size: 1rem;
+            color: #6c5b7b;
+            margin-bottom: 25px;
+        }
+
+        /* تصميم العداد */
+        .counter-box {
+            background: rgba(255, 255, 255, 0.4);
+            padding: 15px;
+            border-radius: 15px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .counter-num {
+            display: block;
+            font-size: 2.5rem;
+            color: #745c97;
+            margin-top: 5px;
+        }
+
+        /* زر الرسالة السرية */
+        .btn-love {
+            background: linear-gradient(135deg, #81ecec, #a29bfe);
+            border: none;
+            padding: 12px 25px;
+            border-radius: 50px;
+            color: white;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(162, 155, 254, 0.4);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .btn-love:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(162, 155, 254, 0.6);
+        }
+
+        /* الرسالة المخفية */
+        .secret-message {
+            display: none;
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 15px;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            animation: slideDown 0.5s ease-in-out forwards;
+        }
+
+        /* أنيميشن الحركات */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* قلوب متساقطة في الخلفية */
+        .heart {
+            position: absolute;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1.5rem;
+            animation: float Up 5s linear infinite;
+            bottom: -50px;
+            z-index: -1;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>كُل عام وإحنا سوى 𔒌</h1>
+        <p class="subtitle">تأخرنا بالاحتفال بس فرحتنا اليوم تسوى الدنيا! ✨</p>
+        
+        <div class="counter-box">
+            <span>مرت على أول يوم جمعنا:</span>
+            <span class="counter-num" id="days-count">0</span>
+            <span style="font-size: 0.9rem; color: #7f8c8d;">يوم من الحب والأمان ☁️</span>
+        </div>
+
+        <button class="btn-love" onclick="toggleMessage()">اضغطي هنا 💌</button>
+
+        <div class="secret-message" id="love-letter">
+            الحمد لله على وجودج بحياتي.. خلصت الامتحانات والاشغال وهسة اجه وقتنا نحتفل. كُل عام وإنتي أحلى شي صارلي، وكُل عام وإحنا سوى وبخير وعقبال الأيام الجاية كلها فرح ونجاح وراحة بال 💜✨.
+        </div>
+    </div>
+
+    <script>
+        // حساب الأيام من يوم 11/6
+        // ملاحظة: السنة نثبتها حسب بداية علاقتكم، هنا فرضت من سنة 2025 كمثال
+        const startDate = new Date("2025-06-11"); 
+        const today = new Date();
+        const differenceInTime = today.getTime() - startDate.getTime();
+        const differenceInDays = Math.floor(differenceInTime / (1000 * 3600 * 24));
+        
+        document.getElementById("days-count").innerText = differenceInDays;
+
+        // إظهار الرسالة السرية
+        function toggleMessage() {
+            const message = document.getElementById("love-letter");
+            if (message.style.display === "block") {
+                message.style.display = "none";
+            } else {
+                message.style.display = "block";
+            }
+        }
+
+        // صنع قلوب متطايرة بالخلفية تلقائياً
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerHTML = '💜';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 3 + 3 + 's';
+            heart.style.fontSize = Math.random() * 20 + 10 + 'px';
+            document.body.appendChild(heart);
+            
+            setTimeout(() => {
+                heart.remove();
+            }, 5000);
+        }
+        setInterval(createHeart, 400);
+    </script>
+</body>
+</html>
