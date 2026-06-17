@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ذكرى حبنا الجميلة 𔒌</title>
+    <style>
+        /* إعدادات عامة */
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+        }
+
+        /* --- 1. شاشة الدخولية --- */
+        #intro-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #a29bfe 0%, #74b9ff 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+            transition: opacity 0.8s ease, visibility 0.8s;
+        }
+
+        /* زر يشبه الغيمة (سمائي ناعم) */
+        .cloud-btn {
+            background: #81ecec;
+            color: #2d3436;
+            font-size: 1.3rem;
+            font-weight: bold;
+            padding: 40px 60px;
+            border: none;
+            /* كيرفات دائرية متداخلة تعطي شكل الغيمة المودرن */
+            border-radius: 100px 100px 80px 80px; 
+            position: relative;
+            cursor: pointer;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15), inset 0 -8px 0 rgba(0,0,0,0.05);
+            animation: floatCloud 3s ease-in-out infinite;
+            transition: transform 0.2s;
+        }
+
+        /* إضافة انتفاخات إضافية للغيمة باستخدام pseudo-elements */
+        .cloud-btn::before, .cloud-btn::after {
+            content: '';
+            position: absolute;
+            background: #81ecec;
+            border-radius: 50%;
+        }
+        .cloud-btn::before {
+            width: 70px;
+            height: 70px;
+            top: -30px;
+            left: 40px;
+        }
+        .cloud-btn::after {
+            width: 80px;
+            height: 80px;
+            top: -40px;
+            right: 40px;
+        }
+
+        .cloud-btn:active {
+            transform: scale(0.95);
+        }
+
+        /* --- 2. الواجهة الرئيسية (التخطيط المرفق) --- */
+        #main-content {
+            opacity: 0;
+            visibility: hidden;
+            width: 100%;
+            max-width: 1000px;
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            transition: opacity 1s ease;
+        }
+
+        /* حاوية التخطيط القوسي */
+        .layout-container {
+            position: relative;
+            width: 100%;
+            height: 650px; /* ارتفاع مناسب لتوزيع العناصر */
+            margin: 0 auto;
+        }
+
+        /* منطقة الفيديو بالمنتصف */
+        .video-box {
+            position: absolute;
+            top: 45%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 320px;
+            height: 220px;
+            background: rgba(255, 255, 255, 0.3);
+            border: 2px dashed rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .video-box video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* مربعات الصور المحيطة بالفيديو (حسب رسمتك بالضبط) */
+        .photo-box {
+            position: absolute;
+            width: 110px;
+            height: 120px;
+            background: rgba(255, 255, 255, 0.25);
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(8px);
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: transform 0.3s ease;
+        }
+
+        .photo-box:hover {
+            transform: scale(1.08) !important; /* يحافظ على التكبير عند الهوفر */
+            z-index: 5;
+        }
+
+        .photo-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* --- إحداثيات وتدوير المربعات بدقة حسب الصورة --- */
+        
+        /* الجهة اليسرى (قوس مائل للداخل) */
+        .p-left-top {
+            top: 15%;
+            left: 15%;
+            transform: rotate(-15deg); /* مائل لليمن قليلاً من فوق */
+        }
+        .p-left-mid {
+            top: 40%;
+            left: 10%;
+            transform: rotate(0deg); /* مستقيم بالمنتصف */
+        }
+        .p-left-bottom {
+            top: 65%;
+            left: 14%;
+            transform: rotate(20deg); /* مائل للأعلى */
+        }
+
+        /* الجهة اليمنى (قوس مائل للداخل) */
+        .p-right-top {
+            top: 13%;
+            right: 15%;
+            transform: rotate(12deg);
+        }
+        .p-right-mid {
+            top: 38%;
+            right: 12%;
+            transform: rotate(0deg);
+        }
+        .p-right-bottom {
+            top: 60%;
+            right: 15%;
+            transform: rotate(-25deg);
+        }
+
+        /* نص توضيحي داخل المربعات الفارغة */
+        .placeholder-text {
+            font-size: 0.8rem;
+            color: #4a2840;
+            font-weight: 500;
+            text-align: center;
+            padding: 5px;
+        }
+
+        /* أنيميشن حركة الغيمة */
+        @keyframes floatCloud {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* قلوب متساقطة بالخلفية */
+        .heart {
+            position: absolute;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 1.5rem;
+            animation: floatUp 6s linear infinite;
+            bottom: -50px;
+            z-index: -1;
+        }
+        @keyframes floatUp {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* توافق الشاشات الصغيرة (الموبايل) */
+        @media (max-width: 768px) {
+            .layout-container {
+                height: auto;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 20px;
+            }
+            .video-box, .photo-box {
+                position: static;
+                transform: none !important;
+                width: 90%;
+                max-width: 300px;
+            }
+            .video-box {
+                order: 1; /* يخلي الفيديو يظهر أول شي أو بالمركز */
+                height: 200px;
+            }
+            .photo-box {
+                height: 150px;
+                order: 2;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="intro-screen">
+        <button class="cloud-btn" onclick="enterSite()">اضغطي داخل الغيمة ☁️</button>
+    </div>
+
+    <div id="main-content">
+        <div class="layout-container">
+            
+            <div class="photo-box p-left-top">
+                <div class="placeholder-text">صورة 1 📸</div>
+            </div>
+            
+            <div class="photo-box p-left-mid">
+                <div class="placeholder-text">صورة 2 📸</div>
+            </div>
+            
+            <div class="photo-box p-left-bottom">
+                <div class="placeholder-text">صورة 3 📸</div>
+            </div>
+
+            /* ----------------------------------------------- */
+
+            <div class="video-box">
+                <video controls autoplay muted loop>
+                    <source src="your-video.mp4" type="video/mp4">
+                    <div class="placeholder-text">مكان الفيديو هنا 🎥❤️</div>
+                </video>
+            </div>
+
+            /* ----------------------------------------------- */
+
+            <div class="photo-box p-right-top">
+                <div class="placeholder-text">صورة 4 📸</div>
+            </div>
+            
+            <div class="photo-box p-right-mid">
+                <div class="placeholder-text">صورة 5 📸</div>
+            </div>
+            
+            <div class="photo-box p-right-bottom">
+                <div class="placeholder-text">صورة 6 📸</div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        // دالة الانتقال عند الضغط على الغيمة
+        function enterSite() {
+            const intro = document.getElementById('intro-screen');
+            const main = document.getElementById('main-content');
+            
+            // إخفاء شاشة الغيمة بتأثير ناعم
+            intro.style.opacity = '0';
+            intro.style.visibility = 'hidden';
+            
+            // إظهار المحتوى الرئيسي
+            setTimeout(() => {
+                main.style.opacity = '1';
+                main.style.visibility = 'visible';
+            }, 400);
+        }
+
+        // صنع قلوب متحركة بالخلفية
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerHTML = '💜';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 3 + 4 + 's';
+            heart.style.fontSize = Math.random() * 15 + 12 + 'px';
+            document.body.appendChild(heart);
+            
+            setTimeout(() => {
+                heart.remove();
+            }, 6000);
+        }
+        setInterval(createHeart, 500);
+    </script>
+</body>
+</html>
